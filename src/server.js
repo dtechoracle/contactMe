@@ -1,46 +1,26 @@
-"use strict";
-const express = require('express');
-const router = express.Router();
-const cors = require('cors');
 const nodemailer = require('nodemailer');
-// var smtpTransport = require('nodemailer-smtp-transport');
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
+const msg = {
+    from: "example@gmail.com",
+    to: "receiver@gmail.com",
+    subject: "Nodemailer",
+    text: "Testing out"
+};
 
-// async..await is not allowed in global scope, must use a wrapper
-async function main() {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  let testAccount = await nodemailer.createTestAccount();
-
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-      user: 'gregoria75@ethereal.email', // generated ethereal user
-      pass: 'Ev3hX7wjnVQyhcvZQ6', // generated ethereal password
+        user: "example@gmail.com",
+        pass: "***********" //This should be the password generated from Apps password from google
     },
-  });
+    port: 465,
+    host: 'smtp.gmail.com'
+})
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "iamezekieljeremiah@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-}
+.sendMail(msg , (err)=>{
+    if (err) {
+        return console.log('Error occurs', err);
+    }else{
+        return console.log('Email Sent');
+    }
+})
