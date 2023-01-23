@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Content and how it works
+
+NodeMailer is a javascript module for sending and receiving mails.
+After installation, i realised you can only send mails to a giving email address, which is the one used while generating the App password from gmail.
+
+## what i resolved to.
+
+I decided to store the submitted data into an array, the convert the array into a JSON format using `JSON.stringify()`
+
+
+
+
+
